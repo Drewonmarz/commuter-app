@@ -1,22 +1,29 @@
+const app = require ('express');
 const express = require('express');
 const connectDB = require('./db');
-const errorHandler = require('./middleware/middlewareerrorhandler');
-
-const app = express();
-
-
-connectDB();
-
-
-app.use(express.json());
+const errorHandler = require('./middlewareerrorhandler');
+const userRoutes =require('./routes/userRoutes');
+const routeRoutes = require ('./routes/routesRoutes');
+const { Mongoose } = require('mongoose');
+const scheduleRoutes = require ('./routes/scheduleRoutes')
 
 
-app.use('/api/user', require('./routes/user'));
-app.use('/api/route', require('./routes/route'));
-app.use('/api/schedule', require('./routes/schedule'));
+(require)
+(Mongoose)
+
+mongoose.connect(process.env.MONGO_URI,{
+    userNewUrlParser: true,
+    userUnifiedTopology: true,
+})
 
 
-app.use(errorHandler);
+ 
+
+// (app)
+app.use('/api/user', userRoutes);
+app.use('/api/route', routeRoutes);
+app.use('/api/schedule', scheduleRoutes);
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
